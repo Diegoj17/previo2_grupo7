@@ -80,7 +80,7 @@ sequenceDiagram
     A->>A: traza {evento, citas, decisión: bloqueada, motivo, versión del modelo} sin datos personales
     A-->>E: PLAN B sin modelo: texto literal de CALC-03 + "si tu caso no está cubierto, escribe a coordinación"
     E->>C: Solicitud de prórroga con evidencia (botón "Reportar incidencia")
-    C-->>E: Una persona decide; el asistente nunca autoriza
+    C-->>E: Una persona decide (el asistente nunca autoriza)
 ```
 
 ## Alternativas descartadas

@@ -31,7 +31,7 @@ Estos pasos van por evento porque no son necesarios para seguir presentando el e
 La API de exámenes se organiza como **arquitectura hexagonal**. El caso de uso (guardar respuesta, cerrar intento) solo conoce **puertos** escritos en el lenguaje del dominio: `AlmacenRespuestas` y `PublicadorEventos`. La base de datos, el broker y, en el ADR-002, el proveedor del modelo de lenguaje quedan en **adaptadores**. Así se puede:
 
 - cambiar de motor de base de datos o de broker sin tocar el dominio (decisión pendiente del ADR-000);
-- reemplazar un adaptador real por uno **simulado** que reproduce fallas (base lenta, entregas repetidas, modelo que no responde). Esto es lo que usa la prueba del escenario del [ADR-003](ADR-003-idempotencia-y-secuencia-en-autoguardado.md).
+- reemplazar un adaptador real por uno **simulado** que reproduce fallas (base lenta, entregas repetidas, modelo que no responde). Esto es lo que usa la prueba del escenario del [ADR-003](ADR-003-idempotencia-en-autoguardado.md).
 
 ## Alternativas descartadas
 
@@ -60,5 +60,5 @@ Absorbería el pico de autoguardados. Se descarta para las respuestas: si el bro
   - la calificación recuerda el `attemptId` ya calificado;
   - el registro de la nota usa una clave idempotente ante el sistema académico;
   - la notificación recuerda el tipo y la versión de publicación.
-- **El mismo problema existe en el camino síncrono:** el navegador reintenta el autoguardado cuando la red falla, así que la API también recibe operaciones repetidas y desordenadas. Ese escenario se prueba y se resuelve en el [ADR-003](ADR-003-idempotencia-y-secuencia-en-autoguardado.md).
+- **El mismo problema existe en el camino síncrono:** el navegador reintenta el autoguardado cuando la red falla, así que la API también recibe operaciones repetidas y desordenadas. Ese escenario se prueba y se resuelve en el [ADR-003](ADR-003-idempotencia-en-autoguardado.md).
 - **Una capa más:** la estructura hexagonal agrega puertos y adaptadores. Con un solo proveedor para siempre sobraría; aquí se justifica porque la base, el broker y el modelo de lenguaje todavía no están decididos y porque permite probar las fallas.

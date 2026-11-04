@@ -8,7 +8,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "test": "node --test test/",
+    "test": "node --test test/escenario.test.js test/asistente.test.js",
     "escenario": "node test/escenario.test.js --falla=red-inestable",
     "escenario:sin-falla": "node test/escenario.test.js --falla=ninguna",
     "eval:asistente": "node test/asistente.test.js",

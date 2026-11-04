@@ -34,7 +34,7 @@ workspace "Sistema de Exámenes en Línea" {
         sistemaAcademico -> sistemaExamenes.integrador "Entrega inscritos" "HTTPS, síncrono antes del examen"
         sistemaExamenes.integrador -> sistemaAcademico "Envía notas finales" "HTTPS, asíncrono, con reintentos"
 
-        sistemaExamenes.apiExamenes -> sistemaExamenes.almacenamiento "Guarda respuestas confirmadas con escritura condicional e idempotente (ADR-003)" "Base de datos, síncrono y durable" "Camino escenario"
+        sistemaExamenes.apiExamenes -> sistemaExamenes.almacenamiento "Guarda respuestas confirmadas con escritura idempotente por operationId (ADR-003)" "Base de datos, síncrono y durable" "Camino escenario"
         sistemaExamenes.apiExamenes -> sistemaExamenes.broker "Publica IntentoCerrado y eventos" "Mensajería, asíncrono"
 
         sistemaExamenes.broker -> sistemaExamenes.calificador "Entrega IntentoCerrado" "Mensajería, al menos una vez"

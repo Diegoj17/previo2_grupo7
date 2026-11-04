@@ -178,6 +178,8 @@ Este escenario obliga a precalentar instancias, distribuir tráfico, evitar una 
 | Respuesta | El sistema conserva toda respuesta confirmada, permite recuperar el estado exacto del intento y acepta operaciones pendientes al reconectar |
 | Medida | El 100 % de las respuestas confirmadas antes de la desconexión debe conservarse y estar disponible al reanudar dentro del tiempo restante. Reintentar una operación no debe duplicar su efecto |
 
+> **Segundo previo:** este es el escenario prioritario que se probó. La medida se corrigió para que tenga estímulo y ventana: 0 respuestas confirmadas perdidas y 0 registros duplicados sobre todos los autoguardados de una aplicación (5.000 × 10), con el 20 % de los autoguardados repetidos y a destiempo. Ver [ADR-003](adr/ADR-003-idempotencia-en-autoguardado.md).
+
 La confirmación visible para el estudiante representa una garantía del servidor, no solamente el almacenamiento local del navegador. La cola local es una ayuda para la reconexión, pero la fuente de verdad es el almacenamiento durable del sistema.
 
 ### 7.3 Escenario de integridad sin vigilancia invasiva

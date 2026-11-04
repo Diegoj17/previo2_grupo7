@@ -4,7 +4,7 @@ Versión del segundo previo. Cambios frente a la versión anterior ([contenedore
 
 - Se agrega el **Asistente de políticas** y su **Índice de políticas** ([ADR-002](adr/ADR-002-asistente-de-politicas-rag.md)).
 - Se agrega el **Proveedor del modelo de lenguaje** como **sistema externo**, igual que el sistema académico o el proveedor de notificaciones.
-- Se marca en **rojo y grueso** el **camino del escenario** probado en el [ADR-003](adr/ADR-003-idempotencia-y-secuencia-en-autoguardado.md): Estudiante → API de exámenes → Almacenamiento durable.
+- Se marca en **rojo y grueso** el **camino del escenario** probado en el [ADR-003](adr/ADR-003-idempotencia-en-autoguardado.md): Estudiante → API de exámenes → Almacenamiento durable.
 
 Línea continua: el que llama espera la respuesta. Línea punteada: nadie espera; el mensaje queda en el broker.
 
@@ -31,7 +31,7 @@ flowchart LR
     llm["Proveedor del modelo de lenguaje<br/>[sistema externo]"]
 
     estudiante -->|"Marca y guarda respuestas<br/>HTTPS, síncrono"| api
-    api -->|"Escritura condicional e idempotente<br/>SQL, síncrono, durable"| db
+    api -->|"Escritura idempotente por operationId<br/>SQL, síncrono, durable"| db
     docente -->|"Configura exámenes y políticas<br/>HTTPS, síncrono"| api
     coordinacion -->|"Programa, monitorea, autoriza prórrogas<br/>HTTPS, síncrono"| api
     api -.->|"Publica IntentoCerrado y eventos de sesión<br/>mensajería, asíncrono"| broker

@@ -1,49 +1,53 @@
-# Bienvenidos al Grupo 7: Exámenes Finales
+# Grupo 7 · Exámenes en línea · Segundo previo
 
-Repositorio de trabajo del **Grupo 7** para el diseño de arquitectura de software del sistema de exámenes conjuntos en línea.
+**Video de sustentación (YouTube, oculto):** _PENDIENTE: pegar aquí el enlace_
 
-## Integrantes
+## Escenario elegido
 
-| Código | Nombre |
+**Ninguna respuesta confirmada se pierde, aunque la red repita y desordene los autoguardados** (disponibilidad y persistencia, visión §7.2).
+
+- **Por qué este:** es el incidente que originó el proyecto (el sistema actual "ya perdió respuestas dos veces"), y una respuesta perdida no se recupera dentro de una ventana inamovible de 90 minutos.
+- **Medida:** 0 respuestas confirmadas perdidas y 0 registros duplicados sobre todos los autoguardados de una aplicación (5.000 estudiantes × 10 preguntas), con el 20 % de los autoguardados llegando dos veces y a destiempo.
+- **Táctica:** escritura idempotente por `operationId`. Antes: unas 1.700 respuestas perdidas por corrida. Después: 0.
+
+Detalle, alternativas y costo en el [ADR-003](docs/adr/ADR-003-idempotencia-en-autoguardado.md).
+
+## Cómo ejecutar (Node.js 20 o superior, sin dependencias)
+
+```bash
+npm run escenario
+```
+
+```bash
+npm run escenario:sin-falla
+```
+
+El primero corre la prueba **con la falla** (red inestable) y el segundo **sin ella**. `npm test` corre todo. Para ver la prueba fallar, se vuelve al commit anterior a la táctica (`git checkout a581201`) y se corre `npm run escenario`. Para regresar: `git checkout main`.
+
+Asistente del ADR-002 (modelo simulado): `npm run eval:asistente` (20 casos, mínimo 18 aciertos y 0 daños) y `npm run eval:asistente:sin-guardrails` (muestra los 4 daños que los guardrails evitan).
+
+## Contenido
+
+| Archivo | Qué es |
 | --- | --- |
-| 1152284 | Diego Alejandro Jaimes Torrado |
-| 1151943 | David Santiago Peñaranda Parada |
-| 1151825 | Luis Alejandro Fonseca Cadena |
-| 1152187 | Rober Esteban Moreno Moreno |
-| 1151714 | Pedro Alejandro Molina Ortiz |
-| 1152055 | Edwin Andres Duarte Rodriguez |
+| [ADR-001](docs/adr/ADR-001-calificacion-por-evento.md) | Patrón clásico (final): guardar y cerrar síncronos; calificar, nota y notificación por evento; API hexagonal |
+| [ADR-002](docs/adr/ADR-002-asistente-de-politicas-rag.md) | Asistente de políticas con RAG + guardrails; diagrama Mermaid de la falla |
+| [ADR-003](docs/adr/ADR-003-idempotencia-en-autoguardado.md) | La táctica aplicada y su costo medido |
+| [contenedores.md](docs/contenedores.md) / [.dsl](docs/contenedores.dsl) | Vista de contenedores con el proveedor del modelo y el camino del escenario |
+| `src/`, `test/` | Código del escenario (puerto, adaptadores, caso de uso) y del asistente; pruebas |
+| [mediciones/](docs/mediciones) | 5 corridas antes y 5 después de la táctica |
 
-## ¿Qué se ha hecho?
+## Quién hizo qué
 
-Se documentó una propuesta arquitectónica para una plataforma capaz de aplicar exámenes en línea a entre 3.000 y 5.000 estudiantes simultáneamente, durante una ventana estricta de 90 minutos.
+_PENDIENTE: confirmar con el grupo. Cada integrante explica en el video la parte que trabajó y hace sus propios commits._
 
-Los principales entregables son:
+| Integrante | Código | Aporte | Parte del video |
+| --- | --- | --- | --- |
+| Diego Alejandro Jaimes Torrado | 1152284 | | 1. El escenario |
+| David Santiago Peñaranda Parada | 1151943 | | 2. El ADR-002 |
+| Luis Alejandro Fonseca Cadena | 1151825 | | 3. La prueba fallando |
+| Rober Esteban Moreno Moreno | 1152187 | | 4. La táctica |
+| Pedro Alejandro Molina Ortiz | 1151714 | | 5. El costo |
+| Edwin Andres Duarte Rodriguez | 1152055 | | 6. Qué queda pendiente |
 
-- **Visión del sistema:** definición del problema, objetivos, alcance, actores, funciones esenciales, contexto C4, escenarios de calidad, requisitos no funcionales y decisiones entre operaciones síncronas y asíncronas.
-- **ADR-000:** decisión de utilizar una arquitectura distribuida y modular, con servicios separados para identidad, matrícula, banco de preguntas, aleatorización, intentos, respuestas, auditoría, calificación, reportes e integración académica.
-- **ADR-001:** decisión de guardar respuestas y cerrar intentos de forma síncrona, mientras la calificación, el registro de notas y las notificaciones se procesan mediante eventos.
-- **Vista de contenedores C4:** representación de la API, almacenamiento durable, broker, workers de calificación, auditoría, notificaciones e integración académica, junto con los actores y sistemas externos.
-- **Flujo de exámenes:** definición de la ruta crítica de cinco pasos, incluyendo responsables, operaciones síncronas o por evento, manejo de fallos, compensaciones e idempotencia.
-
-## Problema abordado
-
-La universidad necesita evitar la pérdida de respuestas y soportar el pico de estudiantes que ingresan simultáneamente a un examen conjunto. La solución prioriza:
-
-- rendimiento y escalabilidad durante el pico de aplicación;
-- disponibilidad, persistencia durable y recuperación de respuestas;
-- aleatorización de preguntas y opciones;
-- registro de eventos relevantes sin vigilancia invasiva;
-- revisión humana de incidencias, sin sanciones automáticas;
-- integración posterior con el sistema académico institucional.
-
-## Documentación
-
-- [Visión del sistema](docs/vision.md)
-- [ADR-000: Arquitectura distribuida](docs/adr/ADR-000.md)
-- [ADR-001: Calificación, notas y notificaciones por evento](docs/adr/ADR-001-BORRADOR.MD)
-- [Vista de contenedores C4](docs/contenedores.dsl)
-- [Flujo de exámenes y decisiones](docs/flujo-examenes_finales.md)
-
-## Estado del proyecto
-
-La documentación de visión, contexto, flujo, arquitectura distribuida, vista de contenedores y procesamiento por eventos se encuentra elaborada y alineada. La vista de contenedores fue ajustada para mostrar los protocolos, la sincronía y la asincronía de cada comunicación. Las decisiones técnicas pendientes, como la tecnología concreta de almacenamiento, la estrategia de despliegue y los procedimientos de contingencia, quedan identificadas para ADR posteriores.
+Se usaron agentes de IA como apoyo. Las decisiones de los ADR las explica y defiende el grupo.
