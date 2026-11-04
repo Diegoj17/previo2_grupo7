@@ -9,6 +9,8 @@
   },
   "scripts": {
     "test": "node --test test/",
+    "escenario": "node test/escenario.test.js --falla=red-inestable",
+    "escenario:sin-falla": "node test/escenario.test.js --falla=ninguna",
     "eval:asistente": "node test/asistente.test.js",
     "eval:asistente:sin-guardrails": "node test/asistente.test.js --sin-guardrails"
   }

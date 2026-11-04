@@ -1,0 +1,117 @@
+# Mediciones ANTES de la táctica (código inicial, último-gana)
+# 2026-11-04 15:54 · node v24.14.1 · 5 corridas por modo
+## npm run escenario · corrida 1
+│ falla                │ 'red-inestable' │
+│ autoguardados        │ 65217           │
+│ copias tardías       │ 13033           │
+│ respuestas perdidas  │ 1764            │
+│ registros duplicados │ 13033           │
+│ p50 guardar (ms)     │ '133.5'         │
+│ p95 guardar (ms)     │ '258.7'         │
+│ p99 guardar (ms)     │ '292.5'         │
+│ duración total (ms)  │ '2093'          │
+✖ escenario: 5000 estudiantes × 10 preguntas, falla = red-inestable (2600.1372ms)
+✖ escenario: 5000 estudiantes × 10 preguntas, falla = red-inestable (2600.1372ms)
+## npm run escenario · corrida 2
+│ falla                │ 'red-inestable' │
+│ autoguardados        │ 65091           │
+│ copias tardías       │ 12958           │
+│ respuestas perdidas  │ 1780            │
+│ registros duplicados │ 12958           │
+│ p50 guardar (ms)     │ '137.8'         │
+│ p95 guardar (ms)     │ '242.4'         │
+│ p99 guardar (ms)     │ '271.6'         │
+│ duración total (ms)  │ '2105'          │
+✖ escenario: 5000 estudiantes × 10 preguntas, falla = red-inestable (2737.5742ms)
+✖ escenario: 5000 estudiantes × 10 preguntas, falla = red-inestable (2737.5742ms)
+## npm run escenario · corrida 3
+│ falla                │ 'red-inestable' │
+│ autoguardados        │ 65039           │
+│ copias tardías       │ 13118           │
+│ respuestas perdidas  │ 1752            │
+│ registros duplicados │ 13118           │
+│ p50 guardar (ms)     │ '121.5'         │
+│ p95 guardar (ms)     │ '223.2'         │
+│ p99 guardar (ms)     │ '247.3'         │
+│ duración total (ms)  │ '1942'          │
+✖ escenario: 5000 estudiantes × 10 preguntas, falla = red-inestable (2419.94ms)
+✖ escenario: 5000 estudiantes × 10 preguntas, falla = red-inestable (2419.94ms)
+## npm run escenario · corrida 4
+│ falla                │ 'red-inestable' │
+│ autoguardados        │ 65066           │
+│ copias tardías       │ 13195           │
+│ respuestas perdidas  │ 1674            │
+│ registros duplicados │ 13195           │
+│ p50 guardar (ms)     │ '127.8'         │
+│ p95 guardar (ms)     │ '204.0'         │
+│ p99 guardar (ms)     │ '228.4'         │
+│ duración total (ms)  │ '1856'          │
+✖ escenario: 5000 estudiantes × 10 preguntas, falla = red-inestable (2367.9967ms)
+✖ escenario: 5000 estudiantes × 10 preguntas, falla = red-inestable (2367.9967ms)
+## npm run escenario · corrida 5
+│ falla                │ 'red-inestable' │
+│ autoguardados        │ 65132           │
+│ copias tardías       │ 13127           │
+│ respuestas perdidas  │ 1720            │
+│ registros duplicados │ 13127           │
+│ p50 guardar (ms)     │ '131.9'         │
+│ p95 guardar (ms)     │ '220.5'         │
+│ p99 guardar (ms)     │ '245.1'         │
+│ duración total (ms)  │ '1931'          │
+✖ escenario: 5000 estudiantes × 10 preguntas, falla = red-inestable (2408.5379ms)
+✖ escenario: 5000 estudiantes × 10 preguntas, falla = red-inestable (2408.5379ms)
+## npm run escenario:sin-falla · corrida 1
+│ falla                │ 'ninguna' │
+│ autoguardados        │ 65022     │
+│ copias tardías       │ 0         │
+│ respuestas perdidas  │ 0         │
+│ registros duplicados │ 0         │
+│ p50 guardar (ms)     │ '92.7'    │
+│ p95 guardar (ms)     │ '194.1'   │
+│ p99 guardar (ms)     │ '221.5'   │
+│ duración total (ms)  │ '1459'    │
+✔ escenario: 5000 estudiantes × 10 preguntas, falla = ninguna (1937.6148ms)
+## npm run escenario:sin-falla · corrida 2
+│ falla                │ 'ninguna' │
+│ autoguardados        │ 65036     │
+│ copias tardías       │ 0         │
+│ respuestas perdidas  │ 0         │
+│ registros duplicados │ 0         │
+│ p50 guardar (ms)     │ '89.9'    │
+│ p95 guardar (ms)     │ '183.9'   │
+│ p99 guardar (ms)     │ '211.6'   │
+│ duración total (ms)  │ '1402'    │
+✔ escenario: 5000 estudiantes × 10 preguntas, falla = ninguna (1882.0758ms)
+## npm run escenario:sin-falla · corrida 3
+│ falla                │ 'ninguna' │
+│ autoguardados        │ 65042     │
+│ copias tardías       │ 0         │
+│ respuestas perdidas  │ 0         │
+│ registros duplicados │ 0         │
+│ p50 guardar (ms)     │ '101.0'   │
+│ p95 guardar (ms)     │ '220.2'   │
+│ p99 guardar (ms)     │ '273.3'   │
+│ duración total (ms)  │ '1584'    │
+✔ escenario: 5000 estudiantes × 10 preguntas, falla = ninguna (2079.9843ms)
+## npm run escenario:sin-falla · corrida 4
+│ falla                │ 'ninguna' │
+│ autoguardados        │ 65107     │
+│ copias tardías       │ 0         │
+│ respuestas perdidas  │ 0         │
+│ registros duplicados │ 0         │
+│ p50 guardar (ms)     │ '101.3'   │
+│ p95 guardar (ms)     │ '221.4'   │
+│ p99 guardar (ms)     │ '246.7'   │
+│ duración total (ms)  │ '1648'    │
+✔ escenario: 5000 estudiantes × 10 preguntas, falla = ninguna (2141.8657ms)
+## npm run escenario:sin-falla · corrida 5
+│ falla                │ 'ninguna' │
+│ autoguardados        │ 65049     │
+│ copias tardías       │ 0         │
+│ respuestas perdidas  │ 0         │
+│ registros duplicados │ 0         │
+│ p50 guardar (ms)     │ '98.6'    │
+│ p95 guardar (ms)     │ '225.4'   │
+│ p99 guardar (ms)     │ '282.5'   │
+│ duración total (ms)  │ '1575'    │
+✔ escenario: 5000 estudiantes × 10 preguntas, falla = ninguna (2105.5803ms)
