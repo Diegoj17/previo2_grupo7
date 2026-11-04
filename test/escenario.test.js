@@ -61,10 +61,12 @@ test(`escenario: ${ESTUDIANTES} estudiantes × ${PREGUNTAS} preguntas, falla = $
   const almacen = crearAlmacenSimulado({ azar });
   const controlador = crearControladorRespuestas(crearGuardarRespuesta(almacen));
   const latencias = [];
+  const estados = {};
   const medirApi = async (peticion) => {
     const t0 = performance.now();
     const r = await controlador(peticion);
     latencias.push(performance.now() - t0);
+    estados[r.body.estado] = (estados[r.body.estado] ?? 0) + 1;
     return r;
   };
   const red = crearRed(medirApi, { falla: FALLA, prob: PROB_DUPLICADO, azar });
@@ -87,6 +89,8 @@ test(`escenario: ${ESTUDIANTES} estudiantes × ${PREGUNTAS} preguntas, falla = $
     'copias tardías': red.copiasEnviadas(),
     'respuestas perdidas': perdidas,
     'registros duplicados': duplicados,
+    'estados de respuesta': JSON.stringify(estados),
+    'claves de idempotencia': almacen.clavesIdempotencia?.() ?? 0,
     'p50 guardar (ms)': percentil(latencias, 50).toFixed(1),
     'p95 guardar (ms)': percentil(latencias, 95).toFixed(1),
     'p99 guardar (ms)': percentil(latencias, 99).toFixed(1),

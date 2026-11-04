@@ -1,0 +1,132 @@
+# Mediciones DESPUÉS de la táctica (escritura idempotente por operationId)
+# 2026-11-04 15:56 · node v24.14.1 · 5 corridas por modo
+## npm run escenario · corrida 1
+│ falla                  │ 'red-inestable'                        │
+│ autoguardados          │ 65133                                  │
+│ copias tardías         │ 13165                                  │
+│ respuestas perdidas    │ 0                                      │
+│ registros duplicados   │ 0                                      │
+│ estados de respuesta   │ '{"guardada":65133,"duplicada":13165}' │
+│ claves de idempotencia │ 65133                                  │
+│ p50 guardar (ms)       │ '153.1'                                │
+│ p95 guardar (ms)       │ '264.1'                                │
+│ p99 guardar (ms)       │ '304.1'                                │
+│ duración total (ms)    │ '2292'                                 │
+✔ escenario: 5000 estudiantes × 10 preguntas, falla = red-inestable (2858.2336ms)
+## npm run escenario · corrida 2
+│ falla                  │ 'red-inestable'                        │
+│ autoguardados          │ 65045                                  │
+│ copias tardías         │ 13087                                  │
+│ respuestas perdidas    │ 0                                      │
+│ registros duplicados   │ 0                                      │
+│ estados de respuesta   │ '{"guardada":65045,"duplicada":13087}' │
+│ claves de idempotencia │ 65045                                  │
+│ p50 guardar (ms)       │ '125.8'                                │
+│ p95 guardar (ms)       │ '237.7'                                │
+│ p99 guardar (ms)       │ '283.4'                                │
+│ duración total (ms)    │ '1966'                                 │
+✔ escenario: 5000 estudiantes × 10 preguntas, falla = red-inestable (2546.2176ms)
+## npm run escenario · corrida 3
+│ falla                  │ 'red-inestable'                        │
+│ autoguardados          │ 65165                                  │
+│ copias tardías         │ 13190                                  │
+│ respuestas perdidas    │ 0                                      │
+│ registros duplicados   │ 0                                      │
+│ estados de respuesta   │ '{"guardada":65165,"duplicada":13190}' │
+│ claves de idempotencia │ 65165                                  │
+│ p50 guardar (ms)       │ '121.5'                                │
+│ p95 guardar (ms)       │ '220.1'                                │
+│ p99 guardar (ms)       │ '270.1'                                │
+│ duración total (ms)    │ '1863'                                 │
+✔ escenario: 5000 estudiantes × 10 preguntas, falla = red-inestable (2423.7579ms)
+## npm run escenario · corrida 4
+│ falla                  │ 'red-inestable'                        │
+│ autoguardados          │ 65025                                  │
+│ copias tardías         │ 13180                                  │
+│ respuestas perdidas    │ 0                                      │
+│ registros duplicados   │ 0                                      │
+│ estados de respuesta   │ '{"guardada":65025,"duplicada":13180}' │
+│ claves de idempotencia │ 65025                                  │
+│ p50 guardar (ms)       │ '121.6'                                │
+│ p95 guardar (ms)       │ '215.4'                                │
+│ p99 guardar (ms)       │ '248.6'                                │
+│ duración total (ms)    │ '1899'                                 │
+✔ escenario: 5000 estudiantes × 10 preguntas, falla = red-inestable (2433.9147ms)
+## npm run escenario · corrida 5
+│ falla                  │ 'red-inestable'                        │
+│ autoguardados          │ 65026                                  │
+│ copias tardías         │ 13109                                  │
+│ respuestas perdidas    │ 0                                      │
+│ registros duplicados   │ 0                                      │
+│ estados de respuesta   │ '{"guardada":65026,"duplicada":13109}' │
+│ claves de idempotencia │ 65026                                  │
+│ p50 guardar (ms)       │ '129.5'                                │
+│ p95 guardar (ms)       │ '233.2'                                │
+│ p99 guardar (ms)       │ '264.2'                                │
+│ duración total (ms)    │ '2046'                                 │
+✔ escenario: 5000 estudiantes × 10 preguntas, falla = red-inestable (2567.144ms)
+## npm run escenario:sin-falla · corrida 1
+│ falla                  │ 'ninguna'            │
+│ autoguardados          │ 65181                │
+│ copias tardías         │ 0                    │
+│ respuestas perdidas    │ 0                    │
+│ registros duplicados   │ 0                    │
+│ estados de respuesta   │ '{"guardada":65181}' │
+│ claves de idempotencia │ 65181                │
+│ p50 guardar (ms)       │ '110.2'              │
+│ p95 guardar (ms)       │ '223.8'              │
+│ p99 guardar (ms)       │ '261.1'              │
+│ duración total (ms)    │ '1679'               │
+✔ escenario: 5000 estudiantes × 10 preguntas, falla = ninguna (2150.5654ms)
+## npm run escenario:sin-falla · corrida 2
+│ falla                  │ 'ninguna'            │
+│ autoguardados          │ 65074                │
+│ copias tardías         │ 0                    │
+│ respuestas perdidas    │ 0                    │
+│ registros duplicados   │ 0                    │
+│ estados de respuesta   │ '{"guardada":65074}' │
+│ claves de idempotencia │ 65074                │
+│ p50 guardar (ms)       │ '105.0'              │
+│ p95 guardar (ms)       │ '220.4'              │
+│ p99 guardar (ms)       │ '256.5'              │
+│ duración total (ms)    │ '1613'               │
+✔ escenario: 5000 estudiantes × 10 preguntas, falla = ninguna (2093.064ms)
+## npm run escenario:sin-falla · corrida 3
+│ falla                  │ 'ninguna'            │
+│ autoguardados          │ 65164                │
+│ copias tardías         │ 0                    │
+│ respuestas perdidas    │ 0                    │
+│ registros duplicados   │ 0                    │
+│ estados de respuesta   │ '{"guardada":65164}' │
+│ claves de idempotencia │ 65164                │
+│ p50 guardar (ms)       │ '92.7'               │
+│ p95 guardar (ms)       │ '200.4'              │
+│ p99 guardar (ms)       │ '245.2'              │
+│ duración total (ms)    │ '1478'               │
+✔ escenario: 5000 estudiantes × 10 preguntas, falla = ninguna (1923.4877ms)
+## npm run escenario:sin-falla · corrida 4
+│ falla                  │ 'ninguna'            │
+│ autoguardados          │ 64966                │
+│ copias tardías         │ 0                    │
+│ respuestas perdidas    │ 0                    │
+│ registros duplicados   │ 0                    │
+│ estados de respuesta   │ '{"guardada":64966}' │
+│ claves de idempotencia │ 64966                │
+│ p50 guardar (ms)       │ '97.6'               │
+│ p95 guardar (ms)       │ '210.1'              │
+│ p99 guardar (ms)       │ '238.9'              │
+│ duración total (ms)    │ '1525'               │
+✔ escenario: 5000 estudiantes × 10 preguntas, falla = ninguna (2017.36ms)
+## npm run escenario:sin-falla · corrida 5
+│ falla                  │ 'ninguna'            │
+│ autoguardados          │ 65069                │
+│ copias tardías         │ 0                    │
+│ respuestas perdidas    │ 0                    │
+│ registros duplicados   │ 0                    │
+│ estados de respuesta   │ '{"guardada":65069}' │
+│ claves de idempotencia │ 65069                │
+│ p50 guardar (ms)       │ '102.1'              │
+│ p95 guardar (ms)       │ '217.4'              │
+│ p99 guardar (ms)       │ '244.2'              │
+│ duración total (ms)    │ '1583'               │
+✔ escenario: 5000 estudiantes × 10 preguntas, falla = ninguna (2072.0387ms)

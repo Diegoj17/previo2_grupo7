@@ -18,6 +18,8 @@ export function crearGuardarRespuesta(almacen) {
   return async function guardarRespuesta(op) {
     validar(op);
     // Se confirma solo después de la escritura durable (ADR-001).
-    return almacen.guardar(op);
+    // TÁCTICA (ADR-003): un reintento con el mismo operationId produce un solo efecto.
+    // 'duplicada' también se confirma: el servidor ya tiene esa operación.
+    return almacen.guardarIdempotente(op);
   };
 }

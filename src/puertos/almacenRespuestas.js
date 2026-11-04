@@ -3,11 +3,13 @@
 /**
  * @typedef {{ operationId: string, attemptId: string, questionId: string, sequence: number, opcion: string }} Operacion
  * @typedef {object} AlmacenRespuestas
- * @property {(op: Operacion) => Promise<{ estado: string }>} guardar  escribe la respuesta de forma durable
+ * @property {(op: Operacion) => Promise<{ estado: 'guardada' | 'duplicada' }>} guardarIdempotente
+ *   escribe de forma durable SOLO si el operationId no se procesó antes; si ya se procesó, no escribe y
+ *   responde 'duplicada'. La comprobación y la escritura son atómicas (ADR-003).
  * @property {(attemptId: string, questionId: string) => Promise<Operacion | undefined>} leer  respuesta vigente
  * @property {() => Operacion[]} registros  registro de respuestas escritas (auditoría)
  */
-export const METODOS_ALMACEN = ['guardar', 'leer', 'registros'];
+export const METODOS_ALMACEN = ['guardarIdempotente', 'leer', 'registros'];
 
 export function exigirPuerto(adaptador) {
   for (const metodo of METODOS_ALMACEN) {

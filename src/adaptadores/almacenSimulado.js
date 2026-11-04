@@ -3,14 +3,18 @@
 export function crearAlmacenSimulado({ latenciaMs = [2, 8], azar = Math.random } = {}) {
   const vigentes = new Map(); // `${attemptId}|${questionId}` -> operación vigente
   const log = []; // registro de respuestas escritas (auditoría)
+  const procesadas = new Set(); // TÁCTICA: claves de idempotencia (operationId), persistidas con la respuesta
   const clave = (attemptId, questionId) => `${attemptId}|${questionId}`;
   const [min, max] = latenciaMs;
   const ida = () => new Promise((listo) => setTimeout(listo, min + azar() * (max - min)));
 
   return {
-    async guardar(op) {
+    // TÁCTICA (ADR-003): escritura idempotente. La clave se guarda en la misma transacción que la respuesta.
+    // En una base real: índice único en operation_id + INSERT ... ON CONFLICT (operation_id) DO NOTHING.
+    async guardarIdempotente(op) {
       await ida();
-      // La última escritura gana, sin importar si es más vieja que la que ya estaba.
+      if (procesadas.has(op.operationId)) return { estado: 'duplicada' };
+      procesadas.add(op.operationId);
       log.push(op);
       vigentes.set(clave(op.attemptId, op.questionId), op);
       return { estado: 'guardada' };
@@ -20,5 +24,6 @@ export function crearAlmacenSimulado({ latenciaMs = [2, 8], azar = Math.random }
       return vigentes.get(clave(attemptId, questionId));
     },
     registros: () => log,
+    clavesIdempotencia: () => procesadas.size,
   };
 }
