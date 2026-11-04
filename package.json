@@ -1,0 +1,15 @@
+{
+  "name": "previo2-grupo7-examenes",
+  "version": "1.0.0",
+  "description": "Grupo 7 - Exámenes en línea: escenario de calidad probado (ADR-003) y asistente de políticas con RAG (ADR-002)",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test test/",
+    "eval:asistente": "node test/asistente.test.js",
+    "eval:asistente:sin-guardrails": "node test/asistente.test.js --sin-guardrails"
+  }
+}

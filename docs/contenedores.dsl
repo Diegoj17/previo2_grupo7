@@ -9,10 +9,13 @@ workspace "Sistema de Exámenes en Línea" {
 
         sistemaAcademico = softwareSystem "Sistema académico" "Sistema institucional externo que proporciona cursos e inscritos y recibe las notas finales." "Sistema externo"
         proveedorNotificaciones = softwareSystem "Proveedor de notificaciones" "Servicio externo para enviar avisos cuando los resultados sean publicados." "Sistema externo"
+        proveedorModelo = softwareSystem "Proveedor del modelo de lenguaje" "Servicio externo que genera la respuesta a partir de la pregunta y los fragmentos de la política (ADR-002)." "Sistema externo"
 
         sistemaExamenes = softwareSystem "Sistema de Exámenes en Línea" "Permite configurar, aplicar, guardar, recuperar, calificar y reportar exámenes conjuntos para hasta 5.000 estudiantes simultáneos." {
-            apiExamenes = container "API de exámenes" "Autentica usuarios, valida intentos, entrega preguntas, controla el tiempo, guarda respuestas y cierra el examen." "API HTTP / Node.js"
-            almacenamiento = container "Almacenamiento durable" "Conserva intentos, asignaciones, respuestas confirmadas, notas y claves de idempotencia." "Base de datos transaccional"
+            apiExamenes = container "API de exámenes" "Autentica usuarios, valida intentos, entrega preguntas, controla el tiempo, guarda respuestas y cierra el examen. Organizada en puertos y adaptadores." "API HTTP / Node.js" "Camino escenario"
+            almacenamiento = container "Almacenamiento durable" "Conserva intentos, asignaciones, respuestas confirmadas, notas y claves de idempotencia." "Base de datos transaccional" "Camino escenario"
+            asistente = container "Asistente de políticas" "Responde preguntas sobre la política del evento con RAG y guardrails; plan B sin modelo. Apagado durante la ventana de 90 minutos." "Node.js"
+            indicePoliticas = container "Índice de políticas" "Fragmentos de la política de cada evento, por versión." "Índice de búsqueda"
             broker = container "Broker de eventos" "Conserva eventos hasta que los consumidores los procesen y permite desacoplar la ruta crítica." "Cola o broker de mensajes"
             calificador = container "Calificador y registrador de notas" "Consume el cierre del intento, califica preguntas cerradas y registra la nota para publicación posterior." "Worker de eventos"
             auditoria = container "Auditoría y reportes" "Consume eventos de sesión y construye incidencias, métricas y reportes para revisión humana." "Worker de eventos"
@@ -20,14 +23,18 @@ workspace "Sistema de Exámenes en Línea" {
             integrador = container "Integrador académico" "Sincroniza la matrícula y envía las notas finales al sistema académico después de los reclamos." "Worker de eventos"
         }
 
-        estudiante -> sistemaExamenes.apiExamenes "Presenta el examen y envía respuestas" "HTTPS, síncrono"
+        estudiante -> sistemaExamenes.apiExamenes "Presenta el examen y envía respuestas" "HTTPS, síncrono" "Camino escenario"
+        estudiante -> sistemaExamenes.asistente "Pregunta por la política del evento (antes de abrir y después de cerrar)" "HTTPS, síncrono"
+        sistemaExamenes.asistente -> sistemaExamenes.indicePoliticas "Busca fragmentos del evento y versión vigente" "Síncrono, máx. 2 fragmentos"
+        sistemaExamenes.asistente -> proveedorModelo "Envía pregunta + fragmentos, sin datos personales" "HTTPS, síncrono, timeout 3 s"
+        sistemaExamenes.apiExamenes -> sistemaExamenes.indicePoliticas "Indexa la política versionada al publicar el examen" "Asíncrono"
         docente -> sistemaExamenes.apiExamenes "Configura preguntas y revisa resultados" "HTTPS, síncrono"
         coordinacion -> sistemaExamenes.apiExamenes "Programa y monitorea la aplicación" "HTTPS, síncrono"
 
         sistemaAcademico -> sistemaExamenes.integrador "Entrega inscritos" "HTTPS, síncrono antes del examen"
         sistemaExamenes.integrador -> sistemaAcademico "Envía notas finales" "HTTPS, asíncrono, con reintentos"
 
-        sistemaExamenes.apiExamenes -> sistemaExamenes.almacenamiento "Guarda respuestas confirmadas" "Base de datos, síncrono y durable"
+        sistemaExamenes.apiExamenes -> sistemaExamenes.almacenamiento "Guarda respuestas confirmadas con escritura condicional e idempotente (ADR-003)" "Base de datos, síncrono y durable" "Camino escenario"
         sistemaExamenes.apiExamenes -> sistemaExamenes.broker "Publica IntentoCerrado y eventos" "Mensajería, asíncrono"
 
         sistemaExamenes.broker -> sistemaExamenes.calificador "Entrega IntentoCerrado" "Mensajería, al menos una vez"
@@ -50,6 +57,7 @@ workspace "Sistema de Exámenes en Línea" {
             include coordinacion
             include sistemaAcademico
             include proveedorNotificaciones
+            include proveedorModelo
             include *
 
             autolayout lr
@@ -77,6 +85,14 @@ workspace "Sistema de Exámenes en Línea" {
             }
             element "Element" {
                 color #ffffff
+            }
+            element "Camino escenario" {
+                stroke #d62728
+                strokeWidth 6
+            }
+            relationship "Camino escenario" {
+                color #d62728
+                thickness 5
             }
             relationship "Relationship" {
                 color #555555
