@@ -22,7 +22,7 @@ npm run escenario
 npm run escenario:sin-falla
 ```
 
-El primero corre la prueba **con la falla** (red inestable) y el segundo **sin ella**. `npm test` corre todo. Para ver la prueba fallar, se vuelve al commit anterior a la táctica (`git checkout a581201`) y se corre `npm run escenario`. Para regresar: `git checkout main`.
+El primero corre la prueba **con la falla** (red inestable) y el segundo **sin ella**. `npm test` corre todo. Para ver la prueba fallar, se vuelve al commit anterior a la táctica (`git checkout prueba-fallando`) y se corre `npm run escenario`. Para regresar: `git checkout main`.
 
 Asistente del ADR-002 (modelo simulado): `npm run eval:asistente` (20 casos, mínimo 18 aciertos y 0 daños) y `npm run eval:asistente:sin-guardrails` (muestra los 4 daños que los guardrails evitan).
 

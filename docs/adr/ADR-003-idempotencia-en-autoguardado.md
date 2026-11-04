@@ -41,7 +41,7 @@ El caso de uso confirmaba después de escribir, como pide el ADR-001, pero el al
 3. Llega la copia tardía de **B** y **la última escritura gana**: P3 vuelve a B.
 4. El estudiante vio "C guardada", pero al reanudar o al calificar aparece **B**. La respuesta confirmada se perdió y nadie recibió un error.
 
-Resultado medido (5 corridas, commit `a581201`, [mediciones/antes.txt](../mediciones/antes.txt)): **1.674 a 1.780 respuestas perdidas y unas 13.100 duplicadas por corrida.** La prueba falla.
+Resultado medido (5 corridas, etiqueta `prueba-fallando`, [mediciones/antes.txt](../mediciones/antes.txt)): **1.674 a 1.780 respuestas perdidas y unas 13.100 duplicadas por corrida.** La prueba falla.
 
 ## Decisión
 
@@ -77,7 +77,7 @@ Es una sola táctica. Corresponde al modo de falla: el problema es una **misma o
 | p50 de guardar, con falla (mediana de 5) | 131,9 ms | 125,8 ms | idem |
 | p95 de guardar, con falla (mediana de 5) | 223,2 ms | 233,2 ms | idem |
 | p50 / p95 sin falla (mediana de 5) | 98,6 / 220,2 ms | 102,1 / 217,4 ms | 5 corridas sin falla |
-| Líneas de código | — | **+18 / −5** (src +14 −5, prueba +4) | `git diff a581201 ba87e38 --stat` |
+| Líneas de código | — | **+18 / −5** (src +14 −5, prueba +4) | `git diff prueba-fallando tactica-aplicada --stat` |
 | Claves de idempotencia guardadas | 0 | **≈ 65.000 por aplicación** (una por autoguardado) | contador del adaptador |
 
 **Cómo leer la latencia.** La diferencia de +10 ms en el p95 con falla y −3 ms sin falla está **dentro de la variación entre corridas** (p95 entre 204 y 264 ms en ambas versiones). En la simulación, la táctica no tiene un costo de latencia medible. Los ≈ 100 a 230 ms son la saturación del proceso que simula 5.000 navegadores al mismo tiempo, no el tiempo de una base real. En una base real, la comprobación es el mismo `INSERT` con índice único: no agrega un viaje de red, pero sí un índice que mantener en cada una de las ≈ 65.000 escrituras.
@@ -91,7 +91,7 @@ Es una sola táctica. Corresponde al modo de falla: el problema es una **misma o
 
 ## Cómo se verifica que funciona
 
-- `npm run escenario`: con la falla (red inestable). Condición de éxito = la medida: `respuestas perdidas = 0` y `registros duplicados = 0`. **Pasa.** En el commit `a581201` (antes de la táctica), el mismo comando **falla**.
+- `npm run escenario`: con la falla (red inestable). Condición de éxito = la medida: `respuestas perdidas = 0` y `registros duplicados = 0`. **Pasa.** En el etiqueta `prueba-fallando` (antes de la táctica), el mismo comando **falla**.
 - `npm run escenario:sin-falla`: sin duplicados; pasa antes y después y sirve de control.
 - `npm test`: corre el escenario y la evaluación del asistente (ADR-002). Se corre en cada cambio, así que funciona como fitness function: si alguien vuelve a "último gana", el build se pone rojo.
 
