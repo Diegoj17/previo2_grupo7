@@ -94,3 +94,9 @@ Es una sola táctica. Corresponde al modo de falla: el problema es una **misma o
 - `npm run escenario`: con la falla (red inestable). Condición de éxito = la medida: `respuestas perdidas = 0` y `registros duplicados = 0`. **Pasa.** En el commit `a581201` (antes de la táctica), el mismo comando **falla**.
 - `npm run escenario:sin-falla`: sin duplicados; pasa antes y después y sirve de control.
 - `npm test`: corre el escenario y la evaluación del asistente (ADR-002). Se corre en cada cambio, así que funciona como fitness function: si alguien vuelve a "último gana", el build se pone rojo.
+
+## Qué queda pendiente
+
+- **Otro modo de falla: operaciones *distintas* que llegan desordenadas.** Un doble clic rápido sin esperar confirmación, o dos pestañas del mismo intento, generan dos `operationId` diferentes. Si la de secuencia 1 llega después de la de secuencia 2, la idempotencia **no** la detiene, porque no es un duplicado, y la respuesta vieja vuelve a ganar. La táctica para ese caso es la **escritura condicional por `sequence`** (`UPDATE … WHERE sequence < $nueva`), con su propia prueba que lance las dos marcas sin esperar. La política para varias pestañas ya estaba abierta en la visión §11.
+- **Almacenamiento lento o caído.** Esta prueba no cubre que la base tarde o falle. Ahí la táctica sería **timeout + estado "pendiente"** visible en la interfaz, con la medida "el estudiante nunca ve 'guardada' sin escritura durable".
+- **El escenario de rendimiento (§7.1)** necesita una prueba de carga sobre infraestructura real, no en un proceso de Node.
