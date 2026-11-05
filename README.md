@@ -1,6 +1,6 @@
 # Grupo 7 · Exámenes en línea · Segundo previo
 
-**Video de sustentación (YouTube, oculto):** _PENDIENTE: pegar aquí el enlace_
+**Video de sustentación (YouTube, oculto):** https://youtu.be/vH7R8oBuKbY
 
 ## Escenario elegido
 
@@ -38,8 +38,6 @@ Asistente del ADR-002 (modelo simulado): `npm run eval:asistente` (20 casos, mí
 | [mediciones/](docs/mediciones) | 5 corridas antes y 5 después de la táctica |
 
 ## Quién hizo qué
-
-Link del video: https://youtu.be/vH7R8oBuKbY
 
 | Integrante | Código | Aporte | Parte del video |
 | --- | --- | --- | --- |
