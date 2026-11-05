@@ -39,7 +39,7 @@ Asistente del ADR-002 (modelo simulado): `npm run eval:asistente` (20 casos, mí
 
 ## Quién hizo qué
 
-_PENDIENTE: confirmar con el grupo. Cada integrante explica en el video la parte que trabajó y hace sus propios commits._
+Link del video: https://youtu.be/vH7R8oBuKbY
 
 | Integrante | Código | Aporte | Parte del video |
 | --- | --- | --- | --- |
